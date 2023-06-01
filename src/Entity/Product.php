@@ -20,6 +20,9 @@ class Product
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column]
+    private ?int $minAge = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getMinAge(): ?int
+    {
+        return $this->minAge;
+    }
+
+    public function setMinAge(int $minAge): self
+    {
+        $this->minAge = $minAge;
 
         return $this;
     }
