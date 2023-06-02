@@ -23,6 +23,10 @@ class Product
     #[ORM\Column]
     private ?int $minAge = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $owner = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Product
     public function setMinAge(int $minAge): self
     {
         $this->minAge = $minAge;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

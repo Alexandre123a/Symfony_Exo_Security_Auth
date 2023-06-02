@@ -38,7 +38,48 @@ class ProductRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAllMinor():array|Product|null
+    {
+        $qb =$this->createQueryBuilder('p')
+            ->where('p.minAge < 18')
+            ->getQuery();
+        return $qb->getResult();
 
+    }
+    public function findByUserID(int $userID):array| Product |null
+    {
+        $qb =$this->createQueryBuilder('p')
+            ->where('p.owner = :val')
+            ->setParameter('val',$userID)
+            ->getQuery();
+        return $qb->getResult();
+    }
+    public function findByMinorUserID(int $userID):array| Product |null
+    {
+        $qb =$this->createQueryBuilder('p')
+            ->where('p.owner = :val')
+            ->andWhere('p.minAge < 18')
+            ->setParameter('val',$userID)
+            ->getQuery();
+        return $qb->getResult();
+    }
+    public function findByNotUserID(int $userID):array| Product |null
+    {
+        $qb =$this->createQueryBuilder('p')
+            ->where('p.owner != :val')
+            ->setParameter('val',$userID)
+            ->getQuery();
+        return $qb->getResult();
+    }
+    public function findByMinorNotUserID(int $userID):array| Product |null
+    {
+        $qb =$this->createQueryBuilder('p')
+            ->where('p.owner != :val')
+            ->andWhere('p.minAge < 18')
+            ->setParameter('val',$userID)
+            ->getQuery();
+        return $qb->getResult();
+    }
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
